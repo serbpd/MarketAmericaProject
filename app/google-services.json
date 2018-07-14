@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "981565371633",
+    "firebase_url": "https://marketamericaproject.firebaseio.com",
+    "project_id": "marketamericaproject",
+    "storage_bucket": "marketamericaproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981565371633:android:612baef41ada4c11",
+        "android_client_info": {
+          "package_name": "com.example.paul.marketamericaproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981565371633-c4lq2gorn0ar2k7vdt0rgg4a23vadgc9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.paul.marketamericaproject",
+            "certificate_hash": "682ee7d398d0be07f6783438ed06efded1a89aaa"
+          }
+        },
+        {
+          "client_id": "981565371633-docf58s2foqkhudgiq4s9hq897ngklac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpV2RJQT0QwQzZfQJ9XBEWYMNDa1JByaI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981565371633-docf58s2foqkhudgiq4s9hq897ngklac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

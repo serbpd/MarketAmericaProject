@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">MarketAmericaProject</string>
+    <string name="txtUsername">Username</string>
+    <string name="txtPass">Password</string>
+    <string name="txtRegister">Register</string>
+    <string name="txtLogin">Login</string>
+    <string name="txtFname">First Name</string>
+    <string name="txtLname">Last Name</string>
+    <string name="txtEmail">Email</string>
+    <string name="txtRepeatPass">Repeat Password</string>
+    <string name="txtBack">Back</string>
+    <string name="txtSearch">Search</string>
+    <string name="txtCatalog">Catalog</string>
+    <string name="txtFavorites">Favorites</string>
+    <string name="txtCart">Your Cart</string>
+    <string name="txtLogout">Logout</string>
+    <string name="txtKeywords">Keywords</string>
+    <string name="txtPurchase">Purchase</string>
+    <string name="txtCheckout">Checkout</string>
 </resources>

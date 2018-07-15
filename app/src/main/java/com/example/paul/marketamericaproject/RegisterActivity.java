@@ -21,7 +21,6 @@ public class RegisterActivity extends AppCompatActivity {
     EditText editFName;
     EditText editLName;
     EditText editEmail;
-    EditText editUsername;
     EditText editPass;
     EditText editPass2;
     Button btnRegister;
@@ -37,7 +36,6 @@ public class RegisterActivity extends AppCompatActivity {
         editFName = findViewById(R.id.editFName);
         editLName = findViewById(R.id.editLName);
         editEmail = findViewById(R.id.editEmail);
-        editUsername = findViewById(R.id.editUsername);
         editPass = findViewById(R.id.editPass);
         editPass2 = findViewById(R.id.editPassRepeat);
         btnRegister = findViewById(R.id.btnRegister);

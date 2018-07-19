@@ -17,4 +17,7 @@
     <string name="txtKeywords">Keywords</string>
     <string name="txtPurchase">Purchase</string>
     <string name="txtCheckout">Checkout</string>
+    <string name="txtDeletePrompt">Tap and hold an item to remove it from your cart</string>
+    <string name="txtRefresh">Refresh</string>
+    <string name="txtSortPrompt">Sort by Price:</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.example.paul.marketamericaproject;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
     Button btnLogin;
     Button btnRegister;
 
+    ProgressDialog load;
     FirebaseAuth mAuth;
 
     @Override
@@ -49,6 +52,13 @@ public class WelcomeActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                load = new ProgressDialog(WelcomeActivity.this);
+                load.setCancelable(false);
+                load.setMessage("Logging in");
+                load.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                load.show();
+
                 if(!editUsername.getText().toString().isEmpty() || !editPass.getText().toString().isEmpty()) {
                     mAuth.signInWithEmailAndPassword(editUsername.getText().toString(), editPass.getText().toString())
                             .addOnCompleteListener(WelcomeActivity.this, new OnCompleteListener<AuthResult>() {
@@ -62,10 +72,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
                                         Log.d("user", mAuth.getCurrentUser().getUid());
 
+                                        load.dismiss();
                                         Intent i = new Intent(WelcomeActivity.this, HomeActivity.class);
                                         startActivity(i);
                                     } else {
                                         // If sign in fails, display a message to the user.
+                                        load.dismiss();
                                         Log.w("login", "signInWithEmail:failure", task.getException());
                                         Toast.makeText(getApplicationContext(), "Invalid Login", Toast.LENGTH_LONG).show();
                                     }

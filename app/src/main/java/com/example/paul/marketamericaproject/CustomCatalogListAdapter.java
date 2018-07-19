@@ -1,6 +1,7 @@
 package com.example.paul.marketamericaproject;
 
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
 import com.squareup.picasso.Picasso;
 
 public class CustomCatalogListAdapter extends ArrayAdapter<Product> {
@@ -40,33 +42,37 @@ public class CustomCatalogListAdapter extends ArrayAdapter<Product> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        if ( prod.getImageURL() != null && !TextUtils.isEmpty(prod.getImageURL())) {
-            Picasso.get().load("" + prod.getImageURL() ).into(viewHolder.imgProd);
-        }
-        else {
-            viewHolder.imgProd.setImageResource(android.R.drawable.presence_offline);
-        }
+        try {
+            if (prod.getImageURL() != null && !TextUtils.isEmpty(prod.getImageURL())) {
+                Picasso.get().load("" + prod.getImageURL()).resize(60, 60).centerCrop().into(viewHolder.imgProd);
+            } else {
+                viewHolder.imgProd.setImageResource(android.R.drawable.presence_offline);
+            }
+        } catch (NullPointerException e) { }
 
-        if ( prod.getName() != null && !TextUtils.isEmpty(prod.getName() )) {
-            viewHolder.txtName.setText(prod.getName());
-        }
-        else {
-            viewHolder.txtName.setText("No Name");
-        }
+        try {
+            if (prod.getName() != null && !TextUtils.isEmpty(prod.getName())) {
+                viewHolder.txtName.setText(prod.getName());
+            } else {
+                viewHolder.txtName.setText("No Name");
+            }
+        } catch (NullPointerException e) { }
 
-        if ( prod.getPrice() != null && !TextUtils.isEmpty(prod.getPrice().toString() )) {
-            viewHolder.txtPrice.setText("$" + prod.getPrice());
-        }
-        else {
-            viewHolder.txtPrice.setText("N/A");
-        }
+        try {
+            if (prod.getPrice() != null && !TextUtils.isEmpty(prod.getPrice().toString())) {
+                viewHolder.txtPrice.setText("$" + prod.getPrice());
+            } else {
+                viewHolder.txtPrice.setText("N/A");
+            }
+        } catch (NullPointerException e) { }
 
-        if ( prod.getShortDescr() != null && !TextUtils.isEmpty(prod.getShortDescr() )) {
-            viewHolder.txtShortDescr.setText(prod.getShortDescr());
-        }
-        else {
-            viewHolder.txtShortDescr.setText("No Description");
-        }
+        try {
+            if (prod.getShortDescr() != null && !TextUtils.isEmpty(prod.getShortDescr())) {
+                viewHolder.txtShortDescr.setText(Html.fromHtml(prod.getShortDescr()));
+            } else {
+                viewHolder.txtShortDescr.setText("No Description");
+            }
+        } catch (NullPointerException e) { }
 
         return convertView;
     }

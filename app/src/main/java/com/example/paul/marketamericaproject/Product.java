@@ -6,7 +6,7 @@ import java.text.ParseException;
 public class Product implements Serializable, Comparable<Product> {
 
     String name, brand, shortDescr, longDescr, imageURL, ID;
-    Double price;
+    Double price, ratingsCount, ratingScore;
 
     public Product() {}
 
@@ -73,6 +73,22 @@ public class Product implements Serializable, Comparable<Product> {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getRatingsCount() {
+        return ratingsCount;
+    }
+
+    public void setRatingsCount(Double ratingsCount) {
+        this.ratingsCount = ratingsCount;
+    }
+
+    public Double getRatingScore() {
+        return ratingScore;
+    }
+
+    public void setRatingScore(Double ratingScore) {
+        this.ratingScore = ratingScore;
     }
 
     @Override

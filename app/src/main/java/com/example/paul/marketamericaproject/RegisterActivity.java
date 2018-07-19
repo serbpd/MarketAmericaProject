@@ -1,6 +1,7 @@
 package com.example.paul.marketamericaproject;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -27,6 +37,8 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnBack;
 
     private FirebaseAuth mAuth;
+    DatabaseReference mRootRef;
+    DatabaseReference mUserRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
 
         mAuth = FirebaseAuth.getInstance();
+        mRootRef = FirebaseDatabase.getInstance().getReference(); //points to the entire database root
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +77,13 @@ public class RegisterActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d("dowork", "createUserWithEmail:success");
                                         Toast.makeText(getApplicationContext(), "New user successfully created", Toast.LENGTH_LONG).show();
-                                        FirebaseUser user = mAuth.getCurrentUser();
+
+                                        Map<String, String> userData = new HashMap<String, String>();
+                                        mUserRef = mRootRef.child("users").child(mAuth.getCurrentUser().getUid()); //points to the current user's data
+
+                                        userData.put("name", editFName.getText() + " " + editLName.getText());
+                                        userData.put("email", editEmail.getText().toString());
+                                        mUserRef.setValue(userData);
 
                                     } else {
                                         // If sign in fails, display a message to the user.
@@ -80,11 +99,10 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        Log.d("login", "signInWithEmail:success");
 
                                         FirebaseUser user = mAuth.getCurrentUser();
 
-                                        Log.d("user", mAuth.getCurrentUser().getUid());
+                                        Toast.makeText(getApplicationContext(), "Successfully registered", Toast.LENGTH_LONG).show();
 
                                         Intent i = new Intent(RegisterActivity.this, HomeActivity.class);
                                         startActivity(i);

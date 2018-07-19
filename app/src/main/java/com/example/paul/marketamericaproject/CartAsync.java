@@ -1,32 +1,32 @@
 package com.example.paul.marketamericaproject;
 
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
-import java.util.ArrayList;
 
-public class ProductAsync extends AsyncTask<String, Void, ArrayList<Product>> {
+public class CartAsync extends AsyncTask<String, Void, Product> {
 
-    CatalogActivity activity;
-    ArrayList<Product> prodList;
+    CartActivity activity;
+    FavoritesActivity activityFaves;
+    Product product;
 
-    public ProductAsync(CatalogActivity activity) {
+    public CartAsync(CartActivity activity) {
         this.activity = activity;
     }
 
+    public CartAsync(FavoritesActivity activity) {
+        this.activityFaves = activity;
+    }
+
     @Override
-    protected ArrayList<Product> doInBackground(String ... params) {
+    protected Product doInBackground(String ... params) {
 
         HttpURLConnection connection = null;
-        ArrayList<Product> result;
-
-        prodList = new ArrayList<>();
+        Product result;
 
         try {
             URL url = new URL(params[0]);
@@ -36,8 +36,8 @@ public class ProductAsync extends AsyncTask<String, Void, ArrayList<Product>> {
             connection.setRequestProperty("apikey", "l7xx27cc84ed751d4f90b732d87240b2e0fa");
             connection.connect();
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                result = ProductParser.ProductPullParser.parseProducts(connection.getInputStream());
-                prodList = result;
+                result = DetailsParser.DetailsPullParser.parseDetails(connection.getInputStream());
+                product = copy(result);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -51,15 +51,25 @@ public class ProductAsync extends AsyncTask<String, Void, ArrayList<Product>> {
             }
         }
 
-        return prodList;
+        return product;
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Product> products) {
-        if (products.size() > 0 && products != null) {
-            activity.setupProducts(products);
+    protected void onPostExecute(Product product) {
+        if(activity != null) {
+            activity.buildCart(product);
+        } else {
+            activityFaves.buildFaves(product);
         }
 
-        super.onPostExecute(products);
+        super.onPostExecute(product);
+    }
+
+    public Product copy(Product p) throws ParseException {
+        Product newProd = new Product(p.getName(), p.getBrand(), p.getShortDescr(), p.getImageURL(), p.getID(), p.getPrice());
+        newProd.setRatingsCount(p.getRatingsCount());
+        newProd.setRatingScore(p.getRatingScore());
+
+        return newProd;
     }
 }

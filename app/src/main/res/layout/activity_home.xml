@@ -4,56 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".HomeActivity"
+    tools:layout_editor_absoluteY="25dp">
 
     <TextView
         android:id="@+id/txtWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="263dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCatalog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnCatalog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="26dp"
-        android:layout_marginStart="5dp"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
         android:text="@string/txtCatalog"
         app:layout_constraintBottom_toTopOf="@+id/btnFavorites"
-        app:layout_constraintStart_toStartOf="@+id/btnFavorites" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcome" />
 
     <Button
         android:id="@+id/btnCart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
         android:text="@string/txtCart"
         app:layout_constraintBottom_toTopOf="@+id/btnLogout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFavorites" />
 
     <Button
         android:id="@+id/btnFavorites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginStart="1dp"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
         android:text="@string/txtFavorites"
         app:layout_constraintBottom_toTopOf="@+id/btnCart"
-        app:layout_constraintStart_toStartOf="@+id/btnCart" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCatalog" />
 
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="57dp"
-        android:layout_marginStart="6dp"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/txtLogout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/btnCart" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCart" />
 </android.support.constraint.ConstraintLayout>

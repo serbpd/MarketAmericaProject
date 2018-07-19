@@ -57,6 +57,7 @@ public class FavoritesActivity extends AppCompatActivity {
             }
         });
 
+        //create a loading bar
         load = new ProgressDialog(FavoritesActivity.this);
         load.setCancelable(false);
         load.setMessage("Loading your favorites");
@@ -66,10 +67,12 @@ public class FavoritesActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+        //retrieve the user's favorites list
         SharedPreferences pref = this.getSharedPreferences(user.getUid(), Context.MODE_PRIVATE);
         faveIDList = pref.getStringSet("favorites", null);
         numFaves = faveIDList.size();
 
+        //check if favorites exist, then put them into an array to send each ID to the API to grab their info
         if(faveIDList != null && numFaves > 0) {
             for(int i = 0; i < faveIDList.size(); i++) {
                 String[] IDArray = faveIDList.toArray(new String[faveIDList.size()]);
@@ -79,10 +82,12 @@ public class FavoritesActivity extends AppCompatActivity {
                         IDArray[i] + "?publisherID=TEST&locale=en_US");
             }
         } else {
+            //if there are no favorites
             load.dismiss();
             Toast.makeText(getApplicationContext(), "No favorites to display", Toast.LENGTH_LONG).show();
         }
 
+        //bring up a product's details when clicked on
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -104,6 +109,7 @@ public class FavoritesActivity extends AppCompatActivity {
         });
     }
 
+    //used by CartAsync to build an array of Products and display them in the listview
     public void buildFaves(Product prod) {
         productsArray.add(prod);
 

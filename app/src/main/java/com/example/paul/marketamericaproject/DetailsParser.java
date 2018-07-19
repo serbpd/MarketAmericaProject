@@ -19,16 +19,19 @@ public class DetailsParser {
 
         static public Product parseDetails(InputStream inputStream) throws IOException, ParseException {
 
+            //takes in JSON form of product details and puts it into a Product object
             try {
                 BufferedReader streamReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 StringBuilder responseStrBuilder = new StringBuilder();
 
                 String inputStr;
+                //go through and store the entire JSON
                 while ((inputStr = streamReader.readLine()) != null)
                     responseStrBuilder.append(inputStr);
 
                 JSONObject p = new JSONObject(responseStrBuilder.toString());
 
+                //build a Product using each node of JSON
                 Product prod = new Product(p.getString("name"), p.getString("brand"), p.getString("description"),
                         p.getString("imageURL"), p.getString("id"), Double.parseDouble(p.getString("minimumPrice").substring(1)));
 

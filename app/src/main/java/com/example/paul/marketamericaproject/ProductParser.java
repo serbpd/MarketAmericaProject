@@ -20,17 +20,21 @@ public class ProductParser {
         static public ArrayList<Product> parseProducts(InputStream inputStream) throws IOException, ParseException {
             ArrayList<Product> products = new ArrayList<>();
 
+            //takes in JSON from a product and turns it into a Product object to display in the catalog
             try {
                 BufferedReader streamReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 StringBuilder responseStrBuilder = new StringBuilder();
 
                 String inputStr;
+                //goes through and stores the whole JSON
                 while ((inputStr = streamReader.readLine()) != null)
                     responseStrBuilder.append(inputStr);
 
+                //gets the entire list of products
                 JSONObject jsonObject = new JSONObject(responseStrBuilder.toString());
                 JSONArray jsonArray = jsonObject.getJSONArray("products");
 
+                //goes through each product in JSON and creates a Product object using each node of info
                 for(int i = 0; i < jsonArray.length(); i++) {
                     JSONObject p = jsonArray.getJSONObject(i);
                     Product prod = new Product(p.getString("name"), p.getString("brand"), p.getString("description"),

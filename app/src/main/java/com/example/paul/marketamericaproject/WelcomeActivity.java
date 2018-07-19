@@ -3,6 +3,7 @@ package com.example.paul.marketamericaproject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        //take user to registration screen
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,13 +54,14 @@ public class WelcomeActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //create a loading bar for signing in
                 load = new ProgressDialog(WelcomeActivity.this);
                 load.setCancelable(false);
                 load.setMessage("Logging in");
                 load.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 load.show();
 
+                //try signing in the user as long as both blanks were filled
                 if(!editUsername.getText().toString().isEmpty() || !editPass.getText().toString().isEmpty()) {
                     mAuth.signInWithEmailAndPassword(editUsername.getText().toString(), editPass.getText().toString())
                             .addOnCompleteListener(WelcomeActivity.this, new OnCompleteListener<AuthResult>() {
@@ -72,6 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                                         Log.d("user", mAuth.getCurrentUser().getUid());
 
+                                        //send the user to the home screen
                                         load.dismiss();
                                         Intent i = new Intent(WelcomeActivity.this, HomeActivity.class);
                                         startActivity(i);

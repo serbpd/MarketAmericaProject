@@ -22,9 +22,9 @@ public class CartAsync extends AsyncTask<String, Void, Product> {
         this.activityFaves = activity;
     }
 
+    //contacts the API to retrieve product data
     @Override
     protected Product doInBackground(String ... params) {
-
         HttpURLConnection connection = null;
         Product result;
 
@@ -54,6 +54,7 @@ public class CartAsync extends AsyncTask<String, Void, Product> {
         return product;
     }
 
+    //sends the retrieved Product back to the CartActivity or FavoritesActivity
     @Override
     protected void onPostExecute(Product product) {
         if(activity != null) {
@@ -65,6 +66,7 @@ public class CartAsync extends AsyncTask<String, Void, Product> {
         super.onPostExecute(product);
     }
 
+    //method that transforms data retrieved from the API into a Product object
     public Product copy(Product p) throws ParseException {
         Product newProd = new Product(p.getName(), p.getBrand(), p.getShortDescr(), p.getImageURL(), p.getID(), p.getPrice());
         newProd.setRatingsCount(p.getRatingsCount());

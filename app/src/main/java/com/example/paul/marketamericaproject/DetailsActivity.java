@@ -68,19 +68,22 @@ public class DetailsActivity extends AppCompatActivity {
         mUserRef = mRootRef.child("users").child(mAuth.getCurrentUser().getUid()); //points to the current user's data
         user = mAuth.getCurrentUser();
 
+        //shows a loading bar
         load = new ProgressDialog(DetailsActivity.this);
         load.setCancelable(false);
         load.setMessage("Loading details");
         load.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         load.show();
 
+        //grab the specific product that was clicked on from the catalog
         Intent i = getIntent();
         final Product prod = (Product) i.getSerializableExtra(CatalogActivity.PRODUCT_OBJ);
 
+        //contact the details API with that product's ID
         new DetailsAsync(DetailsActivity.this).execute("https://api.shop.com/AffiliatePublisherNetwork/v1/products/" +
                         prod.getID() + "?publisherID=TEST&locale=en_US");
 
-        //check product status and set favorite button on or off as needed
+        //check product favorite status and set favorite button on or off as needed
         SharedPreferences pref = this.getSharedPreferences(user.getUid(), Context.MODE_PRIVATE);
         if (pref.getStringSet("favorites", null) == null) {
             btnFave.setImageResource(R.drawable.star_off);
@@ -100,17 +103,20 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        //adds an item to the user's cart in the firebase database under "cart"
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
+                        //grabs the Cart class (which is basically an ArrayList) from the database and adds the new item
                         if (snapshot.hasChild("cart")) {
                             Cart cart = snapshot.child("cart").getValue(Cart.class);
                             cart.addItem(prod.getID());
                             mUserRef.child("cart").setValue(cart);
                         } else {
+                            //makes and stores a new Cart since one wasn't there
                             Cart cart = new Cart();
 
                             cart.addItem(prod.getID());
@@ -125,6 +131,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        //sets the favorite status to the opposite it was when the button was clicked
         btnFave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,48 +153,56 @@ public class DetailsActivity extends AppCompatActivity {
 
     }
 
+    //used by DetailsAsync to put the product's info onto the screen
     public void setupScreen(Product prod) {
         txtName.setText(prod.getName());
         txtPrice.setText("$" + prod.getPrice().toString());
         txtRatings.setText(prod.getRatingsCount().toString() + " reviews");
         txtLongDescr.setText(Html.fromHtml(prod.getShortDescr()));
-        Picasso.get().load("" + prod.getImageURL() ).resize(120, 120).centerCrop().into(img);
+        Picasso.get().load("" + prod.getImageURL() ).resize(150, 150).centerCrop().into(img);
 
         ratingBar.setRating(prod.getRatingScore().floatValue());
 
         load.dismiss();
     }
 
+    //handles saving favorites to SharedPreferences
     private void saveState(boolean isFavorite, Product p) {
+        //uses the user's firebase ID to store their Prefs separately
         SharedPreferences pref = this.getSharedPreferences(user.getUid(), Context.MODE_PRIVATE);
 
         if(isFavorite) {
+            //if there are no favorites at all and something was favorited
             if (pref.getStringSet("favorites", null) == null) {
                 Set<String> faveIDList = new HashSet<>();
                 faveIDList.add(p.getID());
 
                 SharedPreferences.Editor prefEdit = pref.edit();
+                prefEdit.clear();
                 prefEdit.putStringSet("favorites", faveIDList);
                 prefEdit.commit();
-            } else {
+            } else { //if something was favorited and there were other favorited items
                 Set<String> faveIDList = pref.getStringSet("favorites", null);
                 faveIDList.add(p.getID());
 
                 SharedPreferences.Editor prefEdit = pref.edit();
+                prefEdit.clear();
                 prefEdit.putStringSet("favorites", faveIDList);
                 prefEdit.commit();
             }
-        } else {
+        } else { //if something was un-favorited
             Set<String> faveIDList = pref.getStringSet("favorites", null);
             faveIDList.remove(p.getID());
 
             SharedPreferences.Editor prefEdit = pref.edit();
+            prefEdit.clear();
             prefEdit.putStringSet("favorites", faveIDList);
             prefEdit.commit();
         }
 
     }
 
+    //returns whether a product is favorited or not
     private boolean readState(Product p) {
         SharedPreferences pref = this.getSharedPreferences(user.getUid(), Context.MODE_PRIVATE);
         if (pref.getStringSet("favorites", null) == null) {

@@ -57,9 +57,19 @@ public class CartActivity extends AppCompatActivity {
         load.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         load.show();
 
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(CartActivity.this, CheckoutActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //checks to see contents of user's cart
         mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                //if cart items exist, put them into an array and contact the details API to grab data for each item
                 if (snapshot.hasChild("cart")) {
                     Cart cart = snapshot.child("cart").getValue(Cart.class);
 
@@ -92,15 +102,18 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
+    //gets called by the CartAsync to put each Product into the listview
     public void buildCart(Product prod) {
         productsArray.add(prod);
 
+        //once all products are retrieved, show them in the listview
         if(productsArray.size() == cartSize) {
             itemList = new CustomCatalogListAdapter(CartActivity.this, R.layout.catalog_item, productsArray);
             listView.setAdapter(itemList);
             itemList.notifyDataSetChanged();
             load.dismiss();
 
+            //long tapping will remove the item from the firebase database
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {

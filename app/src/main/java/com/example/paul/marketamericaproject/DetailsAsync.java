@@ -21,6 +21,7 @@ public class DetailsAsync extends AsyncTask<String, Void, Product> {
         this.activity = activity;
     }
 
+    //contacts the API to retrieve product data
     @Override
     protected Product doInBackground(String ... params) {
 
@@ -54,6 +55,7 @@ public class DetailsAsync extends AsyncTask<String, Void, Product> {
         return product;
     }
 
+    //sends the retrieved Product back to the DetailsActivity
     @Override
     protected void onPostExecute(Product product) {
         activity.setupScreen(product);
@@ -61,6 +63,7 @@ public class DetailsAsync extends AsyncTask<String, Void, Product> {
         super.onPostExecute(product);
     }
 
+    //method that transforms data retrieved from the API into a Product object
     public Product copy(Product p) throws ParseException {
         Product newProd = new Product(p.getName(), p.getBrand(), p.getShortDescr(), p.getImageURL(), p.getID(), p.getPrice());
         newProd.setRatingsCount(p.getRatingsCount());

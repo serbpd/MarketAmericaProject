@@ -20,6 +20,7 @@ public class ProductAsync extends AsyncTask<String, Void, ArrayList<Product>> {
         this.activity = activity;
     }
 
+    //used to retrieve multiple products with a keyword
     @Override
     protected ArrayList<Product> doInBackground(String ... params) {
 
@@ -54,6 +55,7 @@ public class ProductAsync extends AsyncTask<String, Void, ArrayList<Product>> {
         return prodList;
     }
 
+    //send the products to the catalog screen as long as there are any
     @Override
     protected void onPostExecute(ArrayList<Product> products) {
         if (products.size() > 0 && products != null) {

@@ -68,7 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(editPass.getText().toString().equals(editPass2.getText().toString())) {
+                //create a new user in firebase database as long as all info is filled and passwords match
+                if(editPass.getText().toString().equals(editPass2.getText().toString()) && editFName.getText() != null && editLName.getText() != null && editEmail != null) {
                     mAuth.createUserWithEmailAndPassword(editEmail.getText().toString(), editPass.getText().toString())
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -93,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
 
+                    //immediately sign the user in after registration
                     mAuth.signInWithEmailAndPassword(editEmail.getText().toString(), editPass.getText().toString())
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -114,8 +116,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
                 }
-                else {
-                    Toast.makeText(getApplicationContext(), "Passwords must match", Toast.LENGTH_LONG).show();
+                else { //if passwords don't match or a blank is empty
+                    Toast.makeText(getApplicationContext(), "All blanks must be filled, and passwords must match", Toast.LENGTH_LONG).show();
                 }
             }
         });

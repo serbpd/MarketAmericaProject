@@ -20,4 +20,9 @@
     <string name="txtDeletePrompt">Tap and hold an item to remove it from your cart</string>
     <string name="txtRefresh">Refresh</string>
     <string name="txtSortPrompt">Sort by Price:</string>
+    <string name="txtShipTo">Shipping Address:</string>
+    <string name="txtGPS">Use GPS</string>
+    <string name="txtShopper">SHOPPER</string>
+    <string name="txtMarket">market</string>
+    <string name="txtAmerica">america</string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.paul.marketamericaproject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,14 +43,17 @@ public class CatalogActivity extends AppCompatActivity {
         btnSortAsc = findViewById(R.id.btnSortAsc);
         btnSortDesc = findViewById(R.id.btnSortDesc);
 
+        //stops the keyboard from popping up on activity creation
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        //starts a loading bar
         load = new ProgressDialog(CatalogActivity.this);
         load.setCancelable(false);
         load.setMessage("Loading catalog");
         load.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         load.show();
 
+        //shows products without a search term
         new ProductAsync(CatalogActivity.this).execute("https://api.shop.com/AffiliatePublisherNetwork/v1/products?publisherID=TEST&locale=en_US&perPage=15&term=");
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +72,7 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
+        //these 2 buttons sort the products shown by price
         btnSortAsc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +80,6 @@ public class CatalogActivity extends AppCompatActivity {
                 itemList.notifyDataSetChanged();
             }
         });
-
         btnSortDesc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +89,7 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
+        //clicking an item sends you to the respective item's details page
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -101,10 +106,10 @@ public class CatalogActivity extends AppCompatActivity {
         });
     }
 
+    //used by the ProductAsync to build the array of products for the listview
     public void setupProducts(ArrayList<Product> data) {
         productsArray = new ArrayList<>();
         productsArray = data;
-        Collections.sort(productsArray);
         itemList = new CustomCatalogListAdapter(CatalogActivity.this, R.layout.catalog_item, productsArray);
         listView.setAdapter(itemList);
         itemList.notifyDataSetChanged();

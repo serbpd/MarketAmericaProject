@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import com.squareup.picasso.Picasso;
 
+//class that handles how to set up the listview items
 public class CustomCatalogListAdapter extends ArrayAdapter<Product> {
 
     public CustomCatalogListAdapter(Context context, int resource, ArrayList<Product> prodList) {
@@ -42,9 +43,10 @@ public class CustomCatalogListAdapter extends ArrayAdapter<Product> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        //use Picasso API to grab a product's image and display it
         try {
             if (prod.getImageURL() != null && !TextUtils.isEmpty(prod.getImageURL())) {
-                Picasso.get().load("" + prod.getImageURL()).resize(60, 60).centerCrop().into(viewHolder.imgProd);
+                Picasso.get().load("" + prod.getImageURL()).resize(70, 70).centerCrop().into(viewHolder.imgProd);
             } else {
                 viewHolder.imgProd.setImageResource(android.R.drawable.presence_offline);
             }

@@ -10,25 +10,25 @@
     <ImageView
         android:id="@+id/imgProd"
         android:layout_width="149dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="2dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnFave"
-        app:layout_constraintEnd_toStartOf="@+id/btnCart"
-        app:layout_constraintStart_toEndOf="@+id/btnBack"
-        app:layout_constraintTop_toTopOf="@+id/btnBack"
+        android:layout_height="150dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <Button
         android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="13dp"
-        android:layout_marginStart="9dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="#00A9CA"
         android:text="@string/txtBack"
-        app:layout_constraintEnd_toStartOf="@+id/imgProd"
+        android:textColor="#ffffff"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,20 +37,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="184dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPrice" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="217dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="133dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="148dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/btnFave"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,61 +56,56 @@
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="216dp"
         android:clickable="false"
         android:rating="0"
         android:stepSize="0.1"
-        app:layout_constraintStart_toEndOf="@+id/txtRatings"
-        app:layout_constraintTop_toBottomOf="@+id/txtName" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtRatings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="232dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ratingBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtDescr"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="11dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="21dp"
+        android:layout_width="345dp"
+        android:layout_height="294dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRatings" />
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/btnCart"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="17dp"
-        android:layout_marginEnd="22dp"
+        android:layout_width="73dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnFave"
+        android:background="#00A9CA"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgProd"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cart" />
 
     <ImageButton
         android:id="@+id/btnFave"
-        android:layout_width="0dp"
+        android:layout_width="71dp"
         android:layout_height="71dp"
-        android:layout_marginBottom="106dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginTop="98dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="96dp"
+        android:background="#00A9CA"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtPrice"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/star_off" />
 

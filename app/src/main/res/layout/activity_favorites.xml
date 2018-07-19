@@ -27,6 +27,8 @@
         android:layout_marginBottom="6dp"
         android:layout_marginStart="8dp"
         android:text="@string/txtBack"
+        android:background="#00A9CA"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -36,6 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
         android:text="@string/txtRefresh"
+        android:background="#00A9CA"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

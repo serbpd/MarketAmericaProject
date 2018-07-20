@@ -87,6 +87,9 @@ public class WelcomeActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+                } else {
+                    load.dismiss();
+                    Toast.makeText(getApplicationContext(), "Invalid Login", Toast.LENGTH_LONG).show();
                 }
             }
         });

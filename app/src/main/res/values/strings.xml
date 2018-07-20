@@ -25,4 +25,5 @@
     <string name="txtShopper">SHOPPER</string>
     <string name="txtMarket">market</string>
     <string name="txtAmerica">america</string>
+    <string name="txtAddress">Address</string>
 </resources>

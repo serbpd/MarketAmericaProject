@@ -70,7 +70,11 @@ public class FavoritesActivity extends AppCompatActivity {
         //retrieve the user's favorites list
         SharedPreferences pref = this.getSharedPreferences(user.getUid(), Context.MODE_PRIVATE);
         faveIDList = pref.getStringSet("favorites", null);
-        numFaves = faveIDList.size();
+        if(faveIDList != null) {
+            numFaves = faveIDList.size();
+        } else {
+            numFaves = 0;
+        }
 
         //check if favorites exist, then put them into an array to send each ID to the API to grab their info
         if(faveIDList != null && numFaves > 0) {

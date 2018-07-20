@@ -1,15 +1,19 @@
 package com.example.paul.marketamericaproject;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -82,9 +86,19 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //clicking on the image will let the user take a picture and set their own image there
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //check if camera permission is granted
+                if (ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(), "Camera permissions disabled", Toast.LENGTH_LONG).show();
+                    //ask for camera permission
+                    ActivityCompat.requestPermissions(HomeActivity.this,
+                            new String[]{Manifest.permission.CAMERA}, 1);
+                    return;
+                }
+                //start the camera up
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
             }
